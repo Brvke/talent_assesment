@@ -1,0 +1,10 @@
+<h1>Your Responses</h1>
+<ul>
+    {% for response in responses %}
+        <li>
+            <strong>Question:</strong> {{ response.question.text }}<br>
+            <strong>Your Response:</strong> {{ response.response }}<br>
+            <strong>Score:</strong> {{ response.score }}
+        </li>
+    {% endfor %}
+</ul>

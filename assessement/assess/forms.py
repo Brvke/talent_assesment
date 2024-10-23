@@ -16,5 +16,14 @@ class ResponseForm(forms.ModelForm):
         model = Response
         fields = ['response']  # The user will answer the question
 
-
+"""
+Update the ResponseForm to handle open-ended questions and scoring
+class ResponseForm(forms.ModelForm):
+    class Meta:
+        model = Response
+        fields = ['response']  # The user will answer the question
+        widgets = {
+            'response': forms.Textarea(attrs={'rows': 2, 'cols': 40}),
+        }
+"""
 

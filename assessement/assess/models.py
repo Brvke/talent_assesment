@@ -41,7 +41,24 @@ class Response(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.question.text[:30]}..."
+    
+"""
+Update the Response model to ensure uniqueness and add score handling
+class Response(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    question = models.ForeignKey('Question', on_delete=models.CASCADE)
+    assessment = models.ForeignKey('Assessment', on_delete=models.CASCADE, related_name='responses')
+    response = models.TextField()
+    score = models.IntegerField(default=0, blank=True, null=True)  # Optional score
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'question', 'assessment'], name='unique_user_question_assessment')
+        ]
+
+    def __str__(self):
+        return f"{self.user.username} - {self.question.text[:30]}..."
+"""
 # User Profile for additional details
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

@@ -40,6 +40,37 @@ def take_assessment(request):
         return redirect('results')
     return render(request, 'assessment.html', {'questions': questions})
 
+"""
+We’ll modify the take_assessment view to paginate the questions, displaying 10 questions per page
+@login_required
+def take_assessment(request):
+    questions = Question.objects.all()
+    paginator = Paginator(questions, 10)  # Show 10 questions per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    if request.method == 'POST':
+        for question in page_obj:
+            response_text = request.POST.get(str(question.id), '')
+            if response_text:
+                response, created = Response.objects.get_or_create(
+                    user=request.user,
+                    question=question,
+                    assessment=Assessment.objects.get(user=request.user)  # Assumes one active assessment per user
+                )
+                response.response = response_text
+                response.save()
+
+        messages.success(request, 'Your answers have been saved!')
+        if page_obj.has_next():
+            return redirect(f'/assessment/?page={page_obj.next_page_number()}')
+        else:
+            return redirect('results')  # Redirect to results when the assessment is complete
+
+    return render(request, 'assessment.html', {'page_obj': page_obj})
+
+"""
+
 # to display results or scores (optional) try to view this 
 @login_required
 def results_view(request):
